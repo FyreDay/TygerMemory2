@@ -50,7 +50,7 @@ struct SaveDataStruct {
 	char padding4[0xc];
 	ShopDataStruct* ShopData; //linked list
 	int ShopDataLength;
-	uintptr_t MaybeRacedata;
+	uintptr_t MaybeRacedata; //linked list
 	int mayberacedatalength; //7
 	uintptr_t unknown4;
 	char padding5[0xc];
@@ -190,7 +190,7 @@ struct CollectablesStruct {
 };
 
 struct CollectableStruct {
-	int* BitArray;
+	long* BitArray;
 	int Total;
 	int Collected;
 	char Padding[0x4];
