@@ -1,7 +1,5 @@
-#include "pch.h"
+
 #include "logging.h"
-#include <string>
-#include <fstream>
 
 void Logging::del() {
     const std::string logFilePath = "Plugins/Logs/tygmem2.log";

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <fstream>
+#include "framework.h"
 
 class Logging {
 public:

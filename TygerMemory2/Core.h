@@ -8,8 +8,13 @@
 #include <string>
 #include <functional>
 #define WIN32_LEAN_AND_MEAN 
-#include <windows.h>
 #include "Logging.h"
+#include <iostream>
+#include <psapi.h>
+#include <tchar.h>
+#include "framework.h"
+
+
 class TYGERMEM2 Core
 {
 private:

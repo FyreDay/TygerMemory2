@@ -1,10 +1,4 @@
-#include "pch.h"
 #include "core.h"
-#include <iostream>
-#include <psapi.h>
-#include <windows.h>
-#include <tchar.h>
-#include "Logging.h"
 
 DWORD Core::processId = 0;
 HANDLE Core::hProcess = 0;
@@ -13,13 +7,13 @@ uintptr_t Core::moduleBase = 0;
 bool Core::initialize(HMODULE hModule)
 {
 	Logging::del();
-	Logging::log("TygerMemory Initializing...");
+	Logging::log("TygerMemory2 Initializing...");
 	moduleBase = (uintptr_t)hModule;
 	if (moduleBase == 0) {
 		Logging::log("Failed to load .exe module.");
 		return false;
 	}
-	Logging::log("TygerMemory Initialized.");
+	Logging::log("TygerMemory2 Initialized.");
 	return true;
 }
 

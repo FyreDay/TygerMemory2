@@ -5,17 +5,18 @@
 #define TYGERMEM2 __declspec(dllimport)
 #endif
 #include "core.h"
-
-struct MKObjectStruct {
-	uintptr_t vtable;
-	int unk;
-	ObjectHeaderStruct* ObjectHeader;
-};
+#include "framework.h"
 
 struct ObjectHeaderStruct {
 	int unk;
 	int unk2;
 	uintptr_t objectType;
+};
+
+struct MKObjectStruct {
+	uintptr_t vtable;
+	int unk;
+	ObjectHeaderStruct* ObjectHeader;
 };
 
 class TYGERMEM2 MKObject {
