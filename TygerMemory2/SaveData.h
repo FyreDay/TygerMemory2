@@ -1,5 +1,5 @@
 #pragma once
-#ifdef TYGERMEM_EXPORTS2
+#ifdef TYGERMEM2_EXPORTS
 #define TYGERMEM2 __declspec(dllexport)
 #else
 #define TYGERMEM2 __declspec(dllimport)
