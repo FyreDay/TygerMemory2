@@ -23,36 +23,6 @@ struct ShopItemStruct {
 	char Unknown3[0x10];
 };
 
-struct ShopDataStruct {
-	ShopItemStruct LifterBunyip;
-	ShopItemStruct ThermoBunyip;
-	ShopItemStruct BilbyMap;
-	ShopItemStruct CogMap;
-	ShopItemStruct AnomaliesMap;
-	ShopItemStruct Flamerang;
-	ShopItemStruct Frostyrang;
-	ShopItemStruct Shop031;
-	ShopItemStruct Lasharang;
-	ShopItemStruct Infrarang;
-	ShopItemStruct Smasharang;
-	ShopItemStruct Megarang;
-	ShopItemStruct Shop032;
-	ShopItemStruct Shop033;
-	ShopItemStruct Shop034;
-	ShopItemStruct Zappyrang;
-	ShopItemStruct Shop035;
-	ShopItemStruct Shop036;
-	ShopItemStruct Shop037;
-	ShopItemStruct Shop038;
-	ShopItemStruct UnusedShop2Item;
-	ShopItemStruct Shop039;
-	ShopItemStruct Shop0310;
-	ShopItemStruct UnusedShop3Item;
-	ShopItemStruct UnusedShop6Item;
-	ShopItemStruct SubBunyip;
-	//ITems continue but are unused and for shops that dont exist
-};
-
 struct CollectableStruct {
 	long* BitArray;
 	int Total;
@@ -75,10 +45,51 @@ struct CollectablesStruct {
 	char padding2[0x4];
 };
 
-
+struct ItemStruct {
+	uintptr_t maybeINIstrings;
+	int itemId;// format 3 bytes number, last byte m
+	int titleId;
+	int descId;
+	int unknown0x10;
+	int type;
+	char Undiscovered[0x34]; 
+};
 
 struct MissionStruct {
-	int unk1;
+	uintptr_t maybeINIstrings;
+	uintptr_t id; // format 3 bytes number, last byte m
+	int titleId;
+	int descId;
+	int status;
+	int type;
+	MissionStruct** preconditionMissionArray;
+	int preconditionMissionCount;
+	int numNeeded;
+	MissionStruct* nextHighestId;
+	MissionStruct* lastHighestId;
+	int unknown0x2c;
+	int unknown0x30;
+	int unknown0x34;
+	int timelimit;
+	int unknown0x3c;
+	int unknown0x40;
+	int unknown0x44;
+	int unknown0x48;
+	ItemStruct* requiredItemStruct;
+	int cutscene;
+	int reward;
+	int unknown0x58;
+	uintptr_t susarray;
+	int unknown0x60;
+	int unknown0x64;
+	int itemHeadingID;
+	int itemBodyID;
+	int failureHeadingID;
+	int failureBodyID;
+	int failureActionID;
+	int failureResponseType;
+	char musicstr[0x20];
+	char Undiscovered[0x34];
 };
 
 
@@ -90,28 +101,34 @@ struct MissionDataStruct {
 	char padding2[0x4];
 	int NumMissionLists;
 	MissionStruct* CrocStruct1;
-	int MissionList1Count; //0x27
-	MissionStruct* List1Start;
-	MissionStruct* List1End;
+	int MissionListStatus0Count; 
+	MissionStruct* ListStatus0Start;
+	MissionStruct* ListStatus0End;
+	MissionDataStruct* StartofMissionData0;
+	int MissionListStatus1Count; 
+	MissionStruct* ListStatus1Start;
+	MissionStruct* LisStatus1End;
 	MissionDataStruct* StartofMissionData1;
-	int MissionList2Count; //0x3
-	MissionStruct* List2Start;
-	MissionStruct* List2End;
+	int MissionListStatus2Count; 
+	MissionStruct* ListStatus2Start;
+	MissionStruct* ListStatus2End;
 	MissionDataStruct* StartofMissionData2;
-	int MissionList3Count; //0x12
-	MissionStruct* List3Start;
-	MissionStruct* List3End;
+	int MissionListStatus3Count; //0x12
+	MissionStruct* ListStatus3Start;
+	MissionStruct* ListStatus3End;
 	MissionDataStruct* StartofMissionData3;
-	char List4padding[0xc];
+	int MissionListStatus4Count; //0x12
+	MissionStruct* ListStatus4Start;
+	MissionStruct* ListStatus4End;
 	MissionDataStruct* StartofMissionData4;
-	char List5padding[0xc];
+	int MissionListStatus5Count; //0x12
+	MissionStruct* ListStatus5Start;
+	MissionStruct* ListStatus5End;
 	MissionDataStruct* StartofMissionData5;
-	int MissionListCurrawongCount; //0x1
-	MissionStruct* ListCurrawongStart;
-	MissionStruct* ListCurrawongEnd;
+	int MissionListStatus6Count; //0x12
+	MissionStruct* ListStatus6Start;
+	MissionStruct* ListStatus6End;
 	MissionDataStruct* StartofMissionData6;
-	char List7padding[0xc];
-	MissionDataStruct* StartofMissionData7;
 	uintptr_t unknown1;
 	MissionStruct* TrainingProgram1;
 	MissionStruct* TreeRescue;
@@ -201,8 +218,8 @@ struct SaveDataStruct {
 	char padding10[0x10];
 	MissionDataStruct MissionData;
 	char padding11[0xc];
-	ShopDataStruct* ShopData; //linked list
-	int ShopDataLength;
+	ItemStruct* FirstItem; //Itemlist
+	int TotalItems;
 	uintptr_t MaybeRacedata; //linked list
 	int mayberacedatalength; //7
 	uintptr_t unknown4;
