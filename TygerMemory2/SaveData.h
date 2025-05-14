@@ -239,4 +239,5 @@ protected:
 
 public:
 	static SaveDataStruct* GetData();
+	
 };
