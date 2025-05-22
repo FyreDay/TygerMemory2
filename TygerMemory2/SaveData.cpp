@@ -10,3 +10,5 @@ SaveDataStruct* SaveData::GetData() {
     }
     return Data;
 }
+
+//36dca0 may contain code to load chuncks.

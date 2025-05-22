@@ -149,6 +149,7 @@ struct BoomarangStruct {
 	bool GotBoomerang;
 	bool GotMultirang;
 	bool GotFlamerang;
+	bool GotLavarang;
 	bool GotFrostyrang;
 	bool GotFreezerang;
 	bool GotZappyrang;
@@ -239,5 +240,6 @@ protected:
 
 public:
 	static SaveDataStruct* GetData();
+
 	
 };
