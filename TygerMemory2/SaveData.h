@@ -23,27 +23,6 @@ struct ShopItemStruct {
 	char Unknown3[0x10];
 };
 
-struct CollectableStruct {
-	long* BitArray;
-	int Total;
-	int Collected;
-	char Padding[0x4];
-	int unknownInt;
-};
-
-
-struct CollectablesStruct {
-	int unk1;
-	uintptr_t unknown1;
-	char padding1[0x4];
-	CollectableStruct Cogs;
-	CollectableStruct Bilbies;
-	CollectableStruct Frames;
-	CollectableStruct Orbs;
-	CollectableStruct Steve;
-	CollectableStruct Frills;
-	char padding2[0x4];
-};
 
 struct ItemStruct {
 	uintptr_t maybeINIstrings;
@@ -92,99 +71,6 @@ struct MissionStruct {
 	char Undiscovered[0x34];
 };
 
-
-
-
-struct MissionDataStruct {
-	char padding1[0x4];
-	int TotalMissions;
-	char padding2[0x4];
-	int NumMissionLists;
-	MissionStruct* CrocStruct1;
-	int MissionListStatus0Count; 
-	MissionStruct* ListStatus0Start;
-	MissionStruct* ListStatus0End;
-	MissionDataStruct* StartofMissionData0;
-	int MissionListStatus1Count; 
-	MissionStruct* ListStatus1Start;
-	MissionStruct* LisStatus1End;
-	MissionDataStruct* StartofMissionData1;
-	int MissionListStatus2Count; 
-	MissionStruct* ListStatus2Start;
-	MissionStruct* ListStatus2End;
-	MissionDataStruct* StartofMissionData2;
-	int MissionListStatus3Count; //0x12
-	MissionStruct* ListStatus3Start;
-	MissionStruct* ListStatus3End;
-	MissionDataStruct* StartofMissionData3;
-	int MissionListStatus4Count; //0x12
-	MissionStruct* ListStatus4Start;
-	MissionStruct* ListStatus4End;
-	MissionDataStruct* StartofMissionData4;
-	int MissionListStatus5Count; //0x12
-	MissionStruct* ListStatus5Start;
-	MissionStruct* ListStatus5End;
-	MissionDataStruct* StartofMissionData5;
-	int MissionListStatus6Count; //0x12
-	MissionStruct* ListStatus6Start;
-	MissionStruct* ListStatus6End;
-	MissionDataStruct* StartofMissionData6;
-	uintptr_t unknown1;
-	MissionStruct* TrainingProgram1;
-	MissionStruct* TreeRescue;
-	MissionStruct* CrocStruct2;
-	char padding3[0xc];
-	int NumStartingMissions;
-	MissionStruct* TrainingProgram;
-	MissionStruct* TreeRescue2;
-	MissionStruct* CrocStruct3;
-};
-
-
-
-
-
-//0x24 long
-struct BoomarangStruct {
-	bool GotBoomerang;
-	bool GotMultirang;
-	bool GotFlamerang;
-	bool GotLavarang;
-
-	bool GotFrostyrang;
-	bool GotFreezerang;
-	bool GotZappyrang;
-	bool GotThunderrang;
-
-	bool GotLasharang;
-	bool GotWarparang;
-	bool GotInfrarang;
-	bool GotXrang;
-
-	bool GotSmasharang;
-	bool GotKaboomarang;
-	bool GotMegarang;
-	bool GotOmegarang;
-
-
-	bool GotDeadlyrang;
-	bool GotDoomarang;
-	bool GotAquarang;
-	bool Got_rang;
-
-	bool GotCraftyrang;
-	bool GotCamerarang;
-	char RangPadding[0x2];
-
-	char Rang2Padding[0x4];
-
-	int CurrentRangSave;
-
-	int CurrentRangLive;
-};
-
-
-
 struct SaveDataStruct {
 	char percentComplete;
 	char unk1[3];
@@ -223,28 +109,156 @@ struct SaveDataStruct {
 	unsigned char unkc8;
 	float unkcc; //periodically changes
 
+	//0x30 length start boomerang
 	int paddingd0[0x4];
-	BoomarangStruct BoomerangData;
+	bool GotBoomerang;
+	bool GotMultirang;
+	bool GotFlamerang;
+	bool GotLavarang;
+
+	bool GotFrostyrang;
+	bool GotFreezerang;
+	bool GotZappyrang;
+	bool GotThunderrang;
+
+	bool GotLasharang;
+	bool GotWarparang;
+	bool GotInfrarang;
+	bool GotXrang;
+
+	bool GotSmasharang;
+	bool GotKaboomarang;
+	bool GotMegarang;
+	bool GotOmegarang;
+
+
+	bool GotDeadlyrang;
+	bool GotDoomarang;
+	bool GotAquarang;
+	bool Got_rang;
+
+	bool GotCraftyrang;
+	bool GotCamerarang;
+	char RangPadding[0x2];
+
+	char Rang2Padding[0x4];
+
+	int CurrentRangSave;
+	int CurrentRangLive;
 	int unkf8[0x4];
 	float unkfc;//1
+	//end boomerang
 	float unk100;//0.5
 	float unk104;//0.5
 	int HeroDamageDefault; //unsure
 	int HeroDamageRace;//unsure
+
 	int HeroDamageHelicopter;//unsure
 	char padding114[0xc];
+
 	int unk120;
 	char padding130[0x14];
-	MissionDataStruct MissionData;
-	char padding11[0xc];
+	//oxb0 long mission start address
+	char MissionStart[0x4];
+	int TotalMissions;
+	char padding2[0x4];
+	int NumMissionLists;
+
+	MissionStruct* CrocStruct1;
+	int MissionListStatus0Count;
+	MissionStruct* ListStatus0Start;
+	MissionStruct* ListStatus0End;
+
+	uintptr_t StartofMissionData0;
+	int MissionListStatus1Count;
+	MissionStruct* ListStatus1Start;
+	MissionStruct* LisStatus1End;
+
+	uintptr_t StartofMissionData1;
+	int MissionListStatus2Count;
+	MissionStruct* ListStatus2Start;
+	MissionStruct* ListStatus2End;
+
+	uintptr_t StartofMissionData2;
+	int MissionListStatus3Count; //0x12
+	MissionStruct* ListStatus3Start;
+	MissionStruct* ListStatus3End;
+
+	uintptr_t StartofMissionData3;
+	int MissionListStatus4Count; //0x12
+	MissionStruct* ListStatus4Start;
+	MissionStruct* ListStatus4End;
+
+	uintptr_t StartofMissionData4;
+	int MissionListStatus5Count; //0x12
+	MissionStruct* ListStatus5Start;
+	MissionStruct* ListStatus5End;
+
+	uintptr_t StartofMissionData5;
+	int MissionListStatus6Count; //0x12
+	MissionStruct* ListStatus6Start;
+	MissionStruct* ListStatus6End;
+
+	uintptr_t StartofMissionData6;
+	uintptr_t unknown1;
+	MissionStruct* TrainingProgram1;
+	MissionStruct* TreeRescue;
+
+	MissionStruct* CrocStruct2;
+	char padding3[0xc];
+
+	int NumStartingMissions;
+	MissionStruct* TrainingProgram;
+	MissionStruct* TreeRescue2;
+	MissionStruct* CrocStruct3;
+	//end missions
+
+	char padding1F4[0xc];
 	ItemStruct* FirstItem; //Itemlist
+
 	int TotalItems;
 	uintptr_t MaybeRacedata; //linked list
 	int mayberacedatalength; //7
-	uintptr_t unknown4;
-	char padding6[0xc];
-	char padding7[0x20];
-	CollectablesStruct CollectableData;
+	uintptr_t unknown210;
+
+	char padding214[0x2c];
+	//collectables
+	int unk240c;
+	uintptr_t unknown244;
+
+	char padding234[0x4];
+
+	uintptr_t CogBitArray;
+	int CogTotal;
+	int CogCollected;
+	char CogPadding[0x4];
+	int Cogunknown;
+	uintptr_t BilbyBitArray;
+	int BilbyTotal;
+	int BilbyCollected;
+	char BilbyPadding[0x4];
+	int Bilbyunknown;
+	uintptr_t FrameBitArray;
+	int FrameTotal;
+	int FrameCollected;
+	char FramePadding[0x4];
+	int Frameunknown;
+	uintptr_t OrbBitArray;
+	int OrbTotal;
+	int OrbCollected;
+	char OrbPadding[0x4];
+	int Orbunknown;
+	uintptr_t SteveBitArray;
+	int SteveTotal;
+	int SteveCollected;
+	char StevePadding[0x4];
+	int Steveunknown;
+	uintptr_t CogBitArray;
+	int FrillTotal;
+	int FrillCollected;
+	char FrillPadding[0x4];
+	int Frillunknown;
+	char padding2[0x4];
 };
 
 
