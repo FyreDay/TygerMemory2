@@ -144,7 +144,7 @@ struct MissionDataStruct {
 
 
 
-
+//0x24 long
 struct BoomarangStruct {
 	bool GotBoomerang;
 	bool GotMultirang;
@@ -160,21 +160,27 @@ struct BoomarangStruct {
 	bool GotWarparang;
 	bool GotInfrarang;
 	bool GotXrang;
+
 	bool GotSmasharang;
 	bool GotKaboomarang;
 	bool GotMegarang;
 	bool GotOmegarang;
+
+
 	bool GotDeadlyrang;
 	bool GotDoomarang;
 	bool GotAquarang;
 	bool Got_rang;
+
 	bool GotCraftyrang;
 	bool GotCamerarang;
-	char RangPadding[0x6];
-	char CurrentRangSave;
-	char SavePadding[0x3];
-	char CurrentRangLive;
-	char LivePadding[0x3];
+	char RangPadding[0x2];
+
+	char RangPadding[0x4];
+
+	int CurrentRangSave;
+
+	int CurrentRangLive;
 };
 
 
@@ -217,18 +223,18 @@ struct SaveDataStruct {
 	unsigned char unkc8;
 	float unkcc; //periodically changes
 
-	char paddingd0[0x4];
+	int paddingd0[0x4];
 	BoomarangStruct BoomerangData;
-	char padding5[0x4];
-	float CurrentLevelDefault;//1
-	float CurrentLevelRace;//0.5
-	float CurrentLevelHelicopter;//0.5
+	int unkf8[0x4];
+	float unkfc;//1
+	float unk100;//0.5
+	float unk104;//0.5
 	int HeroDamageDefault; //unsure
 	int HeroDamageRace;//unsure
 	int HeroDamageHelicopter;//unsure
-	char padding8[0xc];
-	int unk26;
-	char padding100[0x10];
+	char padding114[0xc];
+	int unk120;
+	char padding130[0x14];
 	MissionDataStruct MissionData;
 	char padding11[0xc];
 	ItemStruct* FirstItem; //Itemlist
