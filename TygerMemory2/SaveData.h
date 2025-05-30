@@ -180,45 +180,44 @@ struct BoomarangStruct {
 
 
 struct SaveDataStruct {
-	unsigned char percentComplete;
-	short unk1;
-	unsigned char unk3;
+	char percentComplete;
+	char unk1[3];
 	float playtime; //seconds
-	const int Opals;
-	char padding10[0x4];
+	int Opals;
+	char paddingc[0x4];
 
+	char padding10[0x10];
 	char padding20[0x10];
 	char padding30[0x10];
 	char padding40[0x10];
 	char padding50[0x10];
 	char padding60[0x10];
 	char padding70[0x10];
-	char padding80[0x10];
 
-	uintptr_t unk90;
+	uintptr_t unk80;
 	uintptr_t MaybeLevelData;
 	uintptr_t SomePtrToLinkedList;
-	int unk9c;
+	int unk8c;
+
+	int unk90;
+	char padding94[0xC];
 
 	int unka0;
-	char paddinga4[0xC];
+	char paddinga4[0x4];
+	int unka8;
+	float unkac;//1
 
-	int unkb0;
-	char padding2[0x4];
-	int unkb8;
+	float unkb0;//1
+	float unkb4;//0.65
+	char paddingb8[0x4];
 	float unkbc;//1
 
 	float unkc0;//1
-	float unkc4;//0.65
-	char paddingc8[0x4];
-	float unkcc;//1
+	float unkc4;//0.81
+	unsigned char unkc8;
+	float unkcc; //periodically changes
 
-	float unkd0;//1
-	float unkd4;//0.81
-	unsigned char unkd8;
-	float unkdc; //periodically changes
-
-	char paddinge0[0x4];
+	char paddingd0[0x4];
 	BoomarangStruct BoomerangData;
 	char padding5[0x4];
 	float CurrentLevelDefault;//1
