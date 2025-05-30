@@ -176,7 +176,7 @@ struct BoomarangStruct {
 	bool GotCamerarang;
 	char RangPadding[0x2];
 
-	char RangPadding[0x4];
+	char Rang2Padding[0x4];
 
 	int CurrentRangSave;
 
