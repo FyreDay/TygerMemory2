@@ -145,7 +145,7 @@ struct SaveDataStruct {
 
 	int CurrentRangSave;
 	int CurrentRangLive;
-	int unkf8[0x4];
+	int unkf8;
 	float unkfc;//1
 	//end boomerang
 	float unk100;//0.5
