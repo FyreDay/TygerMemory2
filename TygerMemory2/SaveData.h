@@ -110,7 +110,7 @@ struct SaveDataStruct {
 	float unkcc; //periodically changes
 
 	//0x30 length start boomerang
-	int paddingd0[0x4];
+	int paddingd0;
 	bool GotBoomerang;
 	bool GotMultirang;
 	bool GotFlamerang;
