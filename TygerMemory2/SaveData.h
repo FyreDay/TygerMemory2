@@ -150,10 +150,12 @@ struct BoomarangStruct {
 	bool GotMultirang;
 	bool GotFlamerang;
 	bool GotLavarang;
+
 	bool GotFrostyrang;
 	bool GotFreezerang;
 	bool GotZappyrang;
 	bool GotThunderrang;
+
 	bool GotLasharang;
 	bool GotWarparang;
 	bool GotInfrarang;
@@ -180,32 +182,43 @@ struct BoomarangStruct {
 struct SaveDataStruct {
 	unsigned char percentComplete;
 	short unk1;
-	unsigned char unk2;
+	unsigned char unk3;
 	float playtime; //seconds
 	const int Opals;
-	char padding0[0x74];
-	uintptr_t unk3;
+	char padding10[0x4];
+
+	char padding20[0x10];
+	char padding30[0x10];
+	char padding40[0x10];
+	char padding50[0x10];
+	char padding60[0x10];
+	char padding70[0x10];
+	char padding80[0x10];
+
+	uintptr_t unk90;
 	uintptr_t MaybeLevelData;
 	uintptr_t SomePtrToLinkedList;
-	int unk6;
-	int unk7;
-	char padding1[0xC];
-	int unk8;
+	int unk9c;
+
+	int unka0;
+	char paddinga4[0xC];
+
+	int unkb0;
 	char padding2[0x4];
-	int unk9;
-	float unk10;//1
-	float unk11;//1
-	float unk12;//0.65
-	char padding3[0x4];
-	float unk27;//1
-	float unk28;//1
-	float unk29;//0.81
-	unsigned char unk13;
-	unsigned char unk14;
-	unsigned char unk15;
-	unsigned char unk16;
-	float unk17; //periodically changes
-	char padding4[0x4];
+	int unkb8;
+	float unkbc;//1
+
+	float unkc0;//1
+	float unkc4;//0.65
+	char paddingc8[0x4];
+	float unkcc;//1
+
+	float unkd0;//1
+	float unkd4;//0.81
+	unsigned char unkd8;
+	float unkdc; //periodically changes
+
+	char paddinge0[0x4];
 	BoomarangStruct BoomerangData;
 	char padding5[0x4];
 	float CurrentLevelDefault;//1
@@ -216,7 +229,7 @@ struct SaveDataStruct {
 	int HeroDamageHelicopter;//unsure
 	char padding8[0xc];
 	int unk26;
-	char padding10[0x10];
+	char padding100[0x10];
 	MissionDataStruct MissionData;
 	char padding11[0xc];
 	ItemStruct* FirstItem; //Itemlist
