@@ -253,12 +253,12 @@ struct SaveDataStruct {
 	int SteveCollected;
 	char StevePadding[0x4];
 	int Steveunknown;
-	uintptr_t CogBitArray;
+	uintptr_t FrillBitArray;
 	int FrillTotal;
 	int FrillCollected;
 	char FrillPadding[0x4];
 	int Frillunknown;
-	char padding2[0x4];
+	char paddingEnd[0x4];
 };
 
 
