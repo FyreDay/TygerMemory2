@@ -71,7 +71,6 @@ struct MissionStruct {
 	char Undiscovered[0x34];
 };
 
-#pragma pack(push, 1)
 struct SaveDataStruct {
 	char percentComplete;
 	char unk1[3];
@@ -261,8 +260,6 @@ struct SaveDataStruct {
 	int Frillunknown;
 	char paddingEnd[0x4];
 };
-
-#pragma pack(pop)
 
 
 
