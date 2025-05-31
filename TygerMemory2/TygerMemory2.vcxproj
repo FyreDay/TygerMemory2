@@ -146,6 +146,7 @@
     <ClInclude Include="enums.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Logging.h" />
+    <ClInclude Include="MemoryLinkedList.h" />
     <ClInclude Include="Missions.h" />
     <ClInclude Include="MKObject.h" />
     <ClInclude Include="SaveData.h" />

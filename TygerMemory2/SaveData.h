@@ -6,6 +6,8 @@
 #endif
 #include "core.h"
 #include "framework.h"
+#include "MemoryLinkedList.h"
+
 
 struct ShopItemStruct {
 	int* UnknownPtr;
@@ -36,16 +38,18 @@ struct ItemStruct {
 
 struct MissionStruct {
 	uintptr_t maybeINIstrings;
-	uintptr_t id; // format 3 bytes number, last byte m
+	int id; // format 3 bytes number, last byte m
 	int titleId;
 	int descId;
+
 	int status;
 	int type;
 	MissionStruct** preconditionMissionArray;
 	int preconditionMissionCount;
-	int numNeeded;
-	MissionStruct* nextHighestId;
-	MissionStruct* lastHighestId;
+
+	int numberPreconditionMissionNeeded;
+	MissionStruct* previusMission;
+	MissionStruct* NextMission;
 	int unknown0x2c;
 	int unknown0x30;
 	int unknown0x34;
@@ -69,6 +73,74 @@ struct MissionStruct {
 	int failureResponseType;
 	char musicstr[0x20];
 	char Undiscovered[0x34];
+};
+
+class MissionWrapper {
+public:
+	uintptr_t address;
+	MissionWrapper(uintptr_t addr) : address(addr) {}
+
+	int getTitleId() const {
+		return *(int*)(address + 0x08); // titleId offset
+	}
+
+	//const char* getMusicStr() const {
+	//	return (const char*)(address + 0x5C); // musicstr offset
+	//}
+
+	int getRawID() const {
+		return *(int*)(address + 0x04);
+	}
+
+	short getID() const {
+		return *(short*)(address + 0x04);
+	}
+
+	char getIDType() const {
+		return *(char*)(address + 0x07);
+	}
+
+	int getStatus() const {
+		return *(int*)(address + 0x10);
+	}
+
+	std::vector<MissionWrapper> getPreconditionMissions() const {
+		std::vector<MissionWrapper> results;
+
+		// read the pointer to the array of pointers
+		MissionStruct** arrayPtr = *(MissionStruct***)(address + offsetof(MissionStruct, preconditionMissionArray));
+
+		// read the count
+		int count = *(int*)(address + offsetof(MissionStruct, preconditionMissionCount));
+
+		// basic sanity checks
+		if (arrayPtr == nullptr || count <= 0 || count > 1000) return results;
+
+		results.reserve(count);
+
+		for (int i = 0; i < count; ++i) {
+			MissionStruct* preconditionPtr = arrayPtr[i];
+			if (preconditionPtr != nullptr) {
+				results.emplace_back((uintptr_t)preconditionPtr);
+			}
+		}
+
+		return results;
+	}
+	/**
+	 * @brief Gets the number of missions inside the precondition array at state 5 to unlock this mission.
+	 * @return The number of required missions.
+	 */
+	int getNumberOfMissionsRequired() {
+		return *(int*)(address + 0x20);
+	}
+	/**
+	 * @brief Sets the number of missions inside the precondition array at state 5 unlock this mission.
+	 * @param numRequired The new number of required missions.
+	 */
+	void setNumberOfMissionsRequired(int numRequired) {
+		*(int*)(address + 0x20) = numRequired;
+	}
 };
 
 struct SaveDataStruct {
@@ -157,10 +229,13 @@ struct SaveDataStruct {
 	char padding114[0xc];
 
 	int unk120;
-	char padding130[0x14];
-	//oxb0 long mission start address
+	char padding130[0xc];
+
+	char padding130[0x8];
+	//0x138 long mission start address
 	char MissionStart[0x4];
 	int TotalMissions;
+
 	char padding2[0x4];
 	int NumMissionLists;
 
@@ -262,8 +337,6 @@ struct SaveDataStruct {
 };
 
 
-
-
 class TYGERMEM2 SaveData {
 
 protected:
@@ -272,6 +345,6 @@ protected:
 
 public:
 	static SaveDataStruct* GetData();
-
+	static LinkedList<MissionWrapper> MissionList(int missionState);
 	
 };
