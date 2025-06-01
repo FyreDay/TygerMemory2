@@ -229,7 +229,7 @@ struct SaveDataStruct {
 	char padding114[0xc];
 
 	int unk120;
-	char padding130[0xc];
+	char padding124[0xc];
 
 	char padding130[0x8];
 	//0x138 long mission start address
