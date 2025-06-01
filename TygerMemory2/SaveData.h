@@ -9,6 +9,20 @@
 #include "MemoryLinkedList.h"
 #include <optional>
 
+struct ShopStruct {
+	uintptr_t maybeINIstrings;
+	int shopId;
+	int titleId;
+	int descId;
+	bool flag;
+	char boolAlignmentPadding[0x3];
+	char Padding[0x20];
+	int numItems;
+	uintptr_t somethingwithmissions1;
+	uintptr_t somethingwithmissions2;
+};
+
+
 struct ItemStruct {
 	uintptr_t maybeINIstrings;
 	int itemId;
@@ -23,11 +37,12 @@ struct ItemStruct {
 	uintptr_t maybeRelatedMissionList;
 	uintptr_t startofMissionData;
 	uintptr_t targetString;
-	uintptr_t parentString;
+	uintptr_t TDAIconString;
 	int Price;
 	int ShopId;
 	int subtype;
-	uintptr_t itemString;
+	int currencyType;
+	uintptr_t ShopIconNameString;
 };
 
 class ItemWrapper {
@@ -389,6 +404,6 @@ public:
 	static LinkedList<MissionWrapper> MissionList(int missionState);
 	static std::optional<MissionWrapper>findMissionByID(const LinkedList<MissionWrapper>& list, int targetID);
 
-	static LinkedList<ItemWrapper> ItemList();
+	static LinkedList<ItemWrapper> ItemList(int shopId);
 	static std::optional<ItemWrapper> findItemByID(const LinkedList<ItemWrapper>& list, int targetID);
 };
