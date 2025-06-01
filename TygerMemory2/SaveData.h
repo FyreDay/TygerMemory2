@@ -7,7 +7,7 @@
 #include "core.h"
 #include "framework.h"
 #include "MemoryLinkedList.h"
-
+#include <optional>
 
 struct ShopItemStruct {
 	int* UnknownPtr;
@@ -346,5 +346,5 @@ protected:
 public:
 	static SaveDataStruct* GetData();
 	static LinkedList<MissionWrapper> MissionList(int missionState);
-	
+	static std::optional<MissionWrapper>findMissionByID(const LinkedList<MissionWrapper>& list, int targetID);
 };

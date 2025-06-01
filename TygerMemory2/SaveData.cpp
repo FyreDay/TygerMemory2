@@ -32,4 +32,14 @@ LinkedList<MissionWrapper> SaveData::MissionList(int missionState) {
     );
     return missionList;
 }
+std::optional<MissionWrapper> SaveData::findMissionByID(const LinkedList<MissionWrapper>& list, int targetID)
+{
+    for (auto node = list.getHead(); node.isValid(); node = node.getNext()) {
+        MissionWrapper mission = node.getData();
+        if (mission.getID() == targetID) {
+            return mission;
+        }
+    }
+    return std::nullopt;
+}
 //36dca0 may contain code to load chuncks.
