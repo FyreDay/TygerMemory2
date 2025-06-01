@@ -26,6 +26,7 @@ LinkedList<MissionWrapper> SaveData::MissionList(int missionState) {
     );
     return missionList;
 }
+
 std::optional<MissionWrapper> SaveData::findMissionByID(const LinkedList<MissionWrapper>& list, int targetID)
 {
     for (auto node = list.getHead(); node.isValid(); node = node.getNext()) {
@@ -36,6 +37,7 @@ std::optional<MissionWrapper> SaveData::findMissionByID(const LinkedList<Mission
     }
     return std::nullopt;
 }
+
 LinkedList<ItemWrapper> SaveData::ItemList(int shopId)
 {
     uintptr_t listBase = *(uintptr_t*)(Core::moduleBase + 0x4EB580 + 0x1F4);
@@ -65,7 +67,7 @@ LinkedList<ItemWrapper> SaveData::ItemList(int shopId)
 
     LinkedList<ItemWrapper> itemList(
         (int*)&(shop->numItems),
-        (uintptr_t*)head, // offset to head ptr
+        head, // offset to head ptr
         0x28, // offset to prev in each ItemStruct
         0x24  // offset to next in each ItemStruct
     );
