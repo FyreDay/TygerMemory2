@@ -6,8 +6,9 @@
 #endif
 #include "core.h"
 #include "framework.h"
+#include "SaveData.h"
 
 class TYGERMEM2 Missions {
 public:
-	static void UpdateMissionState(uintptr_t mission, int state, char unk);
+	static void UpdateMissionState(MissionStruct* mission, int state, char unk);
 };

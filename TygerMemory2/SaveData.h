@@ -9,31 +9,66 @@
 #include "MemoryLinkedList.h"
 #include <optional>
 
-struct ShopItemStruct {
-	int* UnknownPtr;
-	short ItemId;
-	char idfiller;
-	char itemLabel; //i
-	int unknownInt;
-	int unknownIntPlusOne;
-	int Purchused; //FFFFFFFFFF
-	char paddingpurchuse[0x3];
-	int ShopId;
-	char Padding[0xc];
-	char Unknown2[0x18];
-	int Price;
-	char Unknown3[0x10];
-};
-
-
 struct ItemStruct {
 	uintptr_t maybeINIstrings;
-	int itemId;// format 3 bytes number, last byte m
+	int itemId;
 	int titleId;
 	int descId;
-	int unknown0x10;
+	bool purchased;
+	char boolAlignmentPadding[0x3];
 	int type;
-	char Undiscovered[0x34]; 
+	char Padding[0xc];
+	uintptr_t nextItem;
+	uintptr_t previousItem;
+	uintptr_t maybeRelatedMissionList;
+	uintptr_t startofMissionData;
+	uintptr_t targetString;
+	uintptr_t parentString;
+	int Price;
+	int ShopId;
+	int subtype;
+	uintptr_t itemString;
+};
+
+class ItemWrapper {
+public:
+	uintptr_t address;
+	ItemWrapper(uintptr_t addr) : address(addr) {}
+
+	int getRawID() const {
+		return *(int*)(address + 0x04);
+	}
+
+	short getID() const {
+		return *(short*)(address + 0x04);
+	}
+
+	char getIDType() const {
+		return *(char*)(address + 0x07);
+	}
+
+	int getTitleId() const {
+		return *(int*)(address + 0x08); // titleId offset
+	}
+	int getDescId() const {
+		return *(int*)(address + 0x08); // titleId offset
+	}
+
+	bool getPuchusedStatus() const {
+		return *(bool*)(address + 0x10);
+	}
+
+	void setPuchusedStatus(bool purchased) {
+		*(bool*)(address + 0x10) = purchased;
+	}
+
+	int getPrice() const {
+		return *(int*)(address + 0x10);
+	}
+
+	void setPrice(int price) {
+		*(int*)(address + 0x10) = price;
+	}
 };
 
 struct MissionStruct {
@@ -232,7 +267,7 @@ struct SaveDataStruct {
 	char padding124[0xc];
 
 	char padding130[0x8];
-	//0x138 long mission start address
+	//0xb0 long mission start address
 	char MissionStart[0x4];
 	int TotalMissions;
 
@@ -345,6 +380,15 @@ protected:
 
 public:
 	static SaveDataStruct* GetData();
+	/**
+	 * @brief Returns the list of missions with a specific state
+	 * @param missionState is the state for the mission fom 0-6 inclusive.
+	 * 0 is unavailable. 1 is available but not shown. 2 is available and shown. 3 is active. 4 is able to turn in, 5 is done. 6 is something wierd.
+	 * @return The Linked list of missions.
+	 */
 	static LinkedList<MissionWrapper> MissionList(int missionState);
 	static std::optional<MissionWrapper>findMissionByID(const LinkedList<MissionWrapper>& list, int targetID);
+
+	static LinkedList<ItemWrapper> ItemList();
+	static std::optional<ItemWrapper> findItemByID(const LinkedList<ItemWrapper>& list, int targetID);
 };
