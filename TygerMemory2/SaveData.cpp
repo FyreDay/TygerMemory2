@@ -27,6 +27,18 @@ LinkedList<MissionWrapper> SaveData::MissionList(int missionState) {
     return missionList;
 }
 
+
+std::optional<MissionWrapper> SaveData::findMissionByID(int missionId) {
+    for (int i = 0; i < 7; i++) {
+        LinkedList<MissionWrapper> list = SaveData::MissionList(i);
+        std::optional<MissionWrapper> mission = SaveData::findMissionByID(list, missionId);
+        if (mission.has_value()) {
+            return mission;
+        }
+    }
+    return std::nullopt;
+}
+
 std::optional<MissionWrapper> SaveData::findMissionByID(const LinkedList<MissionWrapper>& list, int targetID)
 {
     for (auto node = list.getHead(); node.isValid(); node = node.getNext()) {

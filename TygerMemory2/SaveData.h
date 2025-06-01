@@ -402,6 +402,7 @@ public:
 	 * @return The Linked list of missions.
 	 */
 	static LinkedList<MissionWrapper> MissionList(int missionState);
+	static std::optional<MissionWrapper>findMissionByID(int missionId);
 	static std::optional<MissionWrapper>findMissionByID(const LinkedList<MissionWrapper>& list, int targetID);
 
 	static LinkedList<ItemWrapper> ItemList(int shopId);
