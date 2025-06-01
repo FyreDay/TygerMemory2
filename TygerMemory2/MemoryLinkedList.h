@@ -52,7 +52,7 @@ public:
     // Overload: tail omitted
     LinkedList(int* len, uintptr_t head,
         size_t prevOff, size_t nextOff)
-        : lengthPtr(len), head(head), tail(nullptr),
+        : lengthPtr(len), head(head), tail(0),
         offsetPrev(prevOff), offsetNext(nextOff), hasTail(false) {}
 
     int getLength() const {
