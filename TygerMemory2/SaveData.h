@@ -28,17 +28,22 @@ struct ItemStruct {
 	int itemId;
 	int titleId;
 	int descId;
+
 	bool purchased;
 	char boolAlignmentPadding[0x3];
 	int type;
-	char Padding[0xc];
+	char Padding[0x8];
+
+	char Padding[0x4];
 	uintptr_t nextItem;
 	uintptr_t previousItem;
 	uintptr_t maybeRelatedMissionList;
+
 	uintptr_t startofMissionData;
 	uintptr_t targetString;
 	uintptr_t TDAIconString;
 	int Price;
+
 	int ShopId;
 	int subtype;
 	int currencyType;
@@ -78,11 +83,15 @@ public:
 	}
 
 	int getPrice() const {
-		return *(int*)(address + 0x10);
+		return *(int*)(address + 0x3c);
 	}
 
 	void setPrice(int price) {
-		*(int*)(address + 0x10) = price;
+		*(int*)(address + 0x3c) = price;
+	}
+
+	int getCurrencyType() const {
+		return *(int*)(address + 0x48);
 	}
 };
 
