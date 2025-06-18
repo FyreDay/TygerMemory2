@@ -34,7 +34,7 @@ struct ItemStruct {
 	int type;
 	char Padding[0x8];
 
-	char Padding[0x4];
+	char Padding2[0x4];
 	uintptr_t nextItem;
 	uintptr_t previousItem;
 	uintptr_t maybeRelatedMissionList;
