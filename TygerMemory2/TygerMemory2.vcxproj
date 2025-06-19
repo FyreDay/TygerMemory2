@@ -150,6 +150,7 @@
     <ClInclude Include="Missions.h" />
     <ClInclude Include="MKObject.h" />
     <ClInclude Include="SaveData.h" />
+    <ClInclude Include="MKUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="Missions.cpp" />
     <ClCompile Include="MKObject.cpp" />
     <ClCompile Include="SaveData.cpp" />
+    <ClCompile Include="MKUI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
