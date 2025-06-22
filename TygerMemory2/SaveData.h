@@ -34,7 +34,8 @@ struct ItemStruct {
 	int type;
 	char Padding[0x8];
 
-	char Padding2[0x4];
+	bool locked;
+	char Padding2[0x3];
 	uintptr_t nextItem;
 	uintptr_t previousItem;
 	uintptr_t maybeRelatedMissionList;
@@ -80,6 +81,14 @@ public:
 
 	void setPuchusedStatus(bool purchased) {
 		*(bool*)(address + 0x10) = purchased;
+	}
+
+	bool isLocked() const {
+		return *(bool*)(address + 0x20);
+	}
+
+	void setLocked(bool locked) {
+		*(bool*)(address + 0x20) = locked;
 	}
 
 	int getPrice() const {
