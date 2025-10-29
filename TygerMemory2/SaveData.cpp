@@ -55,7 +55,7 @@ LinkedList<ItemWrapper> SaveData::ItemList(int shopId)
     uintptr_t listBase = *(uintptr_t*)(Core::moduleBase + 0x4EB580 + 0x1F4);
 
     uintptr_t head = 0;
-
+    //
     switch (shopId) {
         case 1:
             head = listBase;

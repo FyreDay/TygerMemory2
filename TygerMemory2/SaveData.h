@@ -38,7 +38,7 @@ struct ItemStruct {
 	char Padding2[0x3];
 	uintptr_t nextItem;
 	uintptr_t previousItem;
-	uintptr_t maybeRelatedMissionList;
+	uintptr_t maybeRelatedMissionList; //shop?
 
 	uintptr_t startofMissionData;
 	uintptr_t targetString;
@@ -227,7 +227,7 @@ struct SaveDataStruct {
 	char padding70[0x10];
 
 	uintptr_t unk80;
-	uintptr_t MaybeLevelData;
+	uintptr_t LinkedListofLv3; //0: lv2 4: first object 8:
 	uintptr_t SomePtrToLinkedList;
 	int unk8c;
 
@@ -306,37 +306,37 @@ struct SaveDataStruct {
 
 	char padding2[0x4];
 	int NumMissionLists;
-
+	//0: unavailable
 	MissionStruct* CrocStruct1;
 	int MissionListStatus0Count;
 	MissionStruct* ListStatus0Start;
 	MissionStruct* ListStatus0End;
-
+	//1:available but unknown
 	uintptr_t StartofMissionData0;
 	int MissionListStatus1Count;
 	MissionStruct* ListStatus1Start;
-	MissionStruct* LisStatus1End;
-
+	MissionStruct* ListStatus1End;
+	//2: known and on map
 	uintptr_t StartofMissionData1;
 	int MissionListStatus2Count;
 	MissionStruct* ListStatus2Start;
 	MissionStruct* ListStatus2End;
-
+	//3: active
 	uintptr_t StartofMissionData2;
 	int MissionListStatus3Count; //0x12
 	MissionStruct* ListStatus3Start;
 	MissionStruct* ListStatus3End;
-
+	//4: able to turn in
 	uintptr_t StartofMissionData3;
 	int MissionListStatus4Count; //0x12
 	MissionStruct* ListStatus4Start;
 	MissionStruct* ListStatus4End;
-
+	//5: complete
 	uintptr_t StartofMissionData4;
 	int MissionListStatus5Count; //0x12
 	MissionStruct* ListStatus5Start;
 	MissionStruct* ListStatus5End;
-
+	//6: replayable
 	uintptr_t StartofMissionData5;
 	int MissionListStatus6Count; //0x12
 	MissionStruct* ListStatus6Start;
@@ -349,7 +349,7 @@ struct SaveDataStruct {
 
 	MissionStruct* CrocStruct2;
 	char padding3[0xc];
-
+	//call sheet count
 	int NumStartingMissions;
 	MissionStruct* TrainingProgram;
 	MissionStruct* TreeRescue2;
@@ -360,7 +360,7 @@ struct SaveDataStruct {
 	ItemStruct* FirstItem; //Itemlist
 
 	int TotalItems;
-	uintptr_t MaybeRacedata; //linked list
+	uintptr_t ShopsList; //linked list
 	int mayberacedatalength; //7
 	uintptr_t unknown210;
 
@@ -369,7 +369,7 @@ struct SaveDataStruct {
 	int unk240c;
 	uintptr_t unknown244;
 
-	char padding234[0x4];
+	char unknown234[0x4];
 
 	uintptr_t CogBitArray;
 	int CogTotal;
