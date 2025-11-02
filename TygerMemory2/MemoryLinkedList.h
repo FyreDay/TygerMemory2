@@ -69,8 +69,10 @@ public:
         return LinkedListNode<StructType>(tail, offsetPrev, offsetNext);
     }
 
-    void forEach(std::function<void(const StructType&)> callback) const {
+    template<typename Func>
+    void forEach(Func callback) const {
         for (auto node = getHead(); node.isValid(); node = node.getNext()) {
+            // This assumes node.getData() returns a non-const StructType&
             callback(node.getData());
         }
     }
