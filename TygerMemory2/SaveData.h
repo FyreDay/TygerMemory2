@@ -29,7 +29,7 @@ struct ShopStruct {
 
 
 struct ItemStruct {
-	uintptr_t maybeINIstrings;
+	uintptr_t itemINIPtr;
 	int itemId;
 	int titleId;
 	int descId;
@@ -37,13 +37,14 @@ struct ItemStruct {
 	bool purchased;
 	char boolAlignmentPadding[0x3];
 	int type;
-	char Padding[0x8];
+	uintptr_t requirementsArrayPtr;
+	int requirementsArrayLength;
 
 	bool locked;
 	char Padding2[0x3];
 	uintptr_t nextItem;
 	uintptr_t previousItem;
-	uintptr_t maybeRelatedMissionList; //shop?
+	uintptr_t numItemsInShopPtr; //shop?
 
 	uintptr_t startofMissionData;
 	uintptr_t targetString;
