@@ -10,16 +10,21 @@
 #include <optional>
 
 struct ShopStruct {
-	uintptr_t maybeINIstrings;
+	uintptr_t shopINI;
 	int shopId;
 	int titleId;
 	int descId;
+
 	bool flag;
 	char boolAlignmentPadding[0x3];
-	char Padding[0x20];
+	char Padding14[0xC];
+
+	char Padding20[0x10];
+
+	char Padding30[0x4];
 	int numItems;
-	uintptr_t somethingwithmissions1;
-	uintptr_t somethingwithmissions2;
+	ItemStruct* lastItem;
+	ItemStruct* firstItem;
 };
 
 
