@@ -50,36 +50,15 @@ std::optional<MissionWrapper> SaveData::findMissionByID(const LinkedList<Mission
     return std::nullopt;
 }
 
-LinkedList<ItemWrapper> SaveData::ItemList(int shopId)
+LinkedList<ItemWrapper> SaveData::GetShopItemList(int shopId)
 {
-    uintptr_t listBase = *(uintptr_t*)(Core::moduleBase + 0x4EB580 + 0x1F4);
+    uintptr_t firstShopAddress = reinterpret_cast<uintptr_t>(&SaveData::GetData()->FirstShop);
 
-    uintptr_t head = 0;
-    //
-    switch (shopId) {
-        case 1:
-            head = listBase;
-            break;
-        case 2:
-            head = listBase + 0x190;
-            break;
-        case 3:
-            head = listBase + 0x230;
-            break;
-        case 4:
-            head = listBase + 0xa0;
-            break;
-        default:
-            throw std::out_of_range("Index " + std::to_string(shopId) + " is out of bounds (lower bound = 1, upperbound = 4)");
-    };
-    
-
-    uintptr_t shopBase = *(uintptr_t*)(Core::moduleBase + 0x4EB580 + 0x1FC);
-    ShopStruct* shop = reinterpret_cast<ShopStruct*>(shopBase + ((shopId-1) * 0x40));
+    ShopStruct* shop = *reinterpret_cast<ShopStruct**>(firstShopAddress + 0x40 * shopId);
 
     LinkedList<ItemWrapper> itemList(
         (int*)&(shop->numItems),
-        head, // offset to head ptr
+        reinterpret_cast<uintptr_t>(&shop->firstItem), // offset to head ptr
         0x28, // offset to prev in each ItemStruct
         0x24  // offset to next in each ItemStruct
     );

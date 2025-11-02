@@ -445,6 +445,6 @@ public:
 	static std::optional<MissionWrapper>findMissionByID(int missionId);
 	static std::optional<MissionWrapper>findMissionByID(const LinkedList<MissionWrapper>& list, int targetID);
 
-	static LinkedList<ItemWrapper> ItemList(int shopId);
+	static LinkedList<ItemWrapper> GetShopItemList(int shopId);
 	static std::optional<ItemWrapper> findItemByID(const LinkedList<ItemWrapper>& list, int targetID);
 };
