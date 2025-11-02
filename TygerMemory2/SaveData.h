@@ -109,6 +109,11 @@ public:
 	int getCurrencyType() const {
 		return *(int*)(address + 0x48);
 	}
+
+	void setItemRequirements(uintptr_t itemPtrArray, int size) {
+		*(int*)(address + 0x18) = itemPtrArray;
+		*(int*)(address + 0x1c) = size;
+	}
 };
 
 struct MissionStruct {
