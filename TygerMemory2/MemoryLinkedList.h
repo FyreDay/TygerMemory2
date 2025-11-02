@@ -44,9 +44,9 @@ public:
     size_t offsetNext;
     bool hasTail;
 
-    LinkedList(int* len, uintptr_t* head, uintptr_t* tail,
+    LinkedList(int* len, uintptr_t head, uintptr_t tail,
         size_t prevOff, size_t nextOff)
-        : lengthPtr(len), head(*head), tail(*tail),
+        : lengthPtr(len), head(head), tail(tail),
         offsetPrev(prevOff), offsetNext(nextOff), hasTail(true) {}
 
     // Overload: tail omitted

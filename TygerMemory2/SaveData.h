@@ -9,23 +9,6 @@
 #include "MemoryLinkedList.h"
 #include <optional>
 
-struct ShopStruct {
-	uintptr_t shopINI;
-	int shopId;
-	int titleId;
-	int descId;
-
-	bool flag;
-	char boolAlignmentPadding[0x3];
-	char Padding14[0xC];
-
-	char Padding20[0x10];
-
-	char Padding30[0x4];
-	int numItems;
-	ItemStruct* lastItem;
-	ItemStruct* firstItem;
-};
 
 
 struct ItemStruct {
@@ -44,7 +27,7 @@ struct ItemStruct {
 	char Padding2[0x3];
 	uintptr_t nextItem;
 	uintptr_t previousItem;
-	uintptr_t numItemsInShopPtr; //shop?
+	uintptr_t numItemsInShopPtr;
 
 	uintptr_t startofMissionData;
 	uintptr_t targetString;
@@ -55,6 +38,24 @@ struct ItemStruct {
 	int subtype;
 	int currencyType;
 	uintptr_t ShopIconNameString;
+};
+
+struct ShopStruct {
+	uintptr_t shopINI;
+	int shopId;
+	int titleId;
+	int descId;
+
+	bool flag;
+	char boolAlignmentPadding[0x3];
+	char Padding14[0xC];
+
+	char Padding20[0x10];
+
+	char Padding30[0x4];
+	int numItems;
+	ItemStruct* lastItem;
+	ItemStruct* firstItem;
 };
 
 class ItemWrapper {
