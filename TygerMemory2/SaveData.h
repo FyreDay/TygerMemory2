@@ -216,8 +216,8 @@ struct SaveDataStruct {
 	char unk1[3];
 	float playtime; //seconds
 	int Opals;
-	char paddingc[0x4];
-
+	int GameMode; // 2 for hardcore
+	
 	char padding10[0x10];
 	char padding20[0x10];
 	char padding30[0x10];
@@ -226,31 +226,44 @@ struct SaveDataStruct {
 	char padding60[0x10];
 	char padding70[0x10];
 
-	uintptr_t unk80;
+	uintptr_t unkPtr;
 	uintptr_t LinkedListofLv3; //0: lv2 4: first object 8:
 	uintptr_t SomePtrToLinkedList;
-	int unk8c;
+	int unk8c; // 1
 
-	int unk90;
-	char padding94[0xC];
+	int vibration; // boolean
+	int controlScheme;
+	int cart1ControlScheme;
+	int cart2ControlScheme;
 
-	int unka0;
-	char paddinga4[0x4];
-	int unka8;
-	float unkac;//1
+	bool unkSettingsFlag1;
+	bool unkSettingsFlag2;
+	bool unkSettingsFlag3;
+	bool swimmingInvert;
+	bool doomerangInvert;
+	bool unkSettingsFlag4;
+	bool unkSettingsFlag5;
+	bool unkSettingsFlag6;
+	int unka8; // 1
+	float tysViewInvertX; // 1 or -1
 
-	float unkb0;//1
-	float unkb4;//0.65
-	char paddingb8[0x4];
-	float unkbc;//1
-
-	float unkc0;//1
-	float unkc4;//0.81
-	unsigned char unkc8;
-	float unkcc; //periodically changes
+	float tysViewInvertY; // 1 or -1
+	float tysViewSpeed;
+	bool tysViewDirection; // 1 for body 0 for camera
+	bool unkSettingsFlag7;
+	bool unkSettingsFlag8;
+	bool unkSettingsFlag9;
+	float cameraInvertX; // 1 or -1
+	float cameraInvertY; // 1 or -1
+	float cameraSpeed;
+	bool cameraAutoCenter;
+	bool cameraMoveWithJump;
+	bool unkSettingsFlag10;
+	bool unkSettingsFlag11;
+	float cameraZoom;
 
 	//0x30 length start boomerang
-	int paddingd0;
+	int damageTakenTy;
 	bool GotBoomerang;
 	bool GotMultirang;
 	bool GotFlamerang;
@@ -271,7 +284,6 @@ struct SaveDataStruct {
 	bool GotMegarang;
 	bool GotOmegarang;
 
-
 	bool GotDeadlyrang;
 	bool GotDoomarang;
 	bool GotAquarang;
@@ -281,26 +293,29 @@ struct SaveDataStruct {
 	bool GotCamerarang;
 	char RangPadding[0x2];
 
-	char Rang2Padding[0x4];
+	int unkRangCount2; // Changed to 1 when doing donuts in fourbie. Could be some kind of skill point flags???
 
 	int CurrentRangSave;
 	int CurrentRangLive;
-	int unkf8;
-	float unkfc;//1
-	//end boomerang
-	float unk100;//0.5
-	float unk104;//0.5
-	int HeroDamageDefault; //unsure
-	int HeroDamageRace;//unsure
+	char shopsVisitedFlags;
+	char shopsVisitedPadding[0x3];
 
-	int HeroDamageHelicopter;//unsure
+	float unkfc;
+	float unk100;
+	float unk104;
+	int damageTakenTyGlobal; // Applies across all saves
+	int damageTakenRace; // unsure
+	int unkDamageTaken; // unsure
 	char padding114[0xc];
 
-	int unk120;
+	int enemiesKilledGlobal; // Applies across all saves
 	char padding124[0xc];
 
-	char padding130[0x8];
-	//0xb0 long mission start address
+	char padding130[0x4];
+
+	int gameState; // 2 = minigame
+
+	// 0xb0 long mission start address
 	char MissionStart[0x4];
 	int TotalMissions;
 
@@ -348,27 +363,22 @@ struct SaveDataStruct {
 	MissionStruct* TreeRescue;
 
 	MissionStruct* CrocStruct2;
-	char padding3[0xc];
-	//call sheet count
-	int NumStartingMissions;
-	MissionStruct* TrainingProgram;
-	MissionStruct* TreeRescue2;
-	MissionStruct* CrocStruct3;
+	MissionStruct* activeMission;
+	int callSheetCount;
+	MissionStruct* callSheetMissions[6];
 	//end missions
 
-	char padding1F4[0xc];
-	ItemStruct* FirstItem; //Itemlist
-
+	ItemStruct* FirstItem; // Item list
 	int TotalItems;
-	uintptr_t ShopsList; //linked list
-	int mayberacedatalength; //7
-	uintptr_t unknown210;
+	ShopStruct* FirstShop; // Shop list
+	int shopCount; // 7
 
+	uintptr_t settingsIni;
 	char padding214[0x2c];
-	//collectables
 	int unk240c;
-	uintptr_t unknown244;
+	uintptr_t missionsIni;
 
+	//collectables
 	char unknown234[0x4];
 
 	uintptr_t CogBitArray;
@@ -402,6 +412,12 @@ struct SaveDataStruct {
 	char FrillPadding[0x4];
 	int Frillunknown;
 	char paddingEnd[0x4];
+
+	char unkDataBlock[0x400];
+	int cheatsUsed; // boolean
+	int mapRotation; // boolean
+	int currentTySkin;
+	int currentFourbieSkin;
 };
 
 
