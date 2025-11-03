@@ -11,9 +11,12 @@
 
 
 
-struct ItemStruct {
+class ItemStruct {
+public:
 	uintptr_t itemINIPtr;
-	int itemId;
+	short itemId;
+	char typeCharPadding;
+	char typeChar;
 	int titleId;
 	int descId;
 
@@ -32,12 +35,21 @@ struct ItemStruct {
 	uintptr_t startofMissionData;
 	uintptr_t targetString;
 	uintptr_t TDAIconString;
-	int Price;
+	int price;
 
 	int ShopId;
 	int subtype;
 	int currencyType;
 	uintptr_t ShopIconNameString;
+
+	int getID() const {
+		return *reinterpret_cast<const int*>(&this->itemId);
+	}
+
+	void setItemRequirements(uintptr_t itemPtrArray, int size) {
+		this->requirementsArrayPtr = itemPtrArray;
+		this->requirementsArrayLength = size;
+	}
 };
 
 struct ShopStruct {
@@ -61,10 +73,17 @@ struct ShopStruct {
 class ItemWrapper {
 public:
 	uintptr_t address;
+
 	ItemWrapper(uintptr_t addr) : address(addr) {}
 
+	// Helper to get a pointer to the underlying struct
+	ItemStruct* getStructPtr() const {
+		// Safe cast because ItemStruct is standard layout
+		return reinterpret_cast<ItemStruct*>(address);
+	}
+
 	int getRawID() const {
-		return *(int*)(address + 0x04);
+		return getStructPtr()->itemId;
 	}
 
 	short getID() const {
@@ -72,47 +91,56 @@ public:
 	}
 
 	char getIDType() const {
-		return *(char*)(address + 0x07);
+		return getStructPtr()->typeChar;
 	}
 
 	int getTitleId() const {
-		return *(int*)(address + 0x08); // titleId offset
+		return getStructPtr()->titleId;// titleId offset
 	}
 	int getDescId() const {
-		return *(int*)(address + 0x08); // titleId offset
+		return getStructPtr()->descId; // titleId offset
 	}
 
 	bool getPuchusedStatus() const {
-		return *(bool*)(address + 0x10);
+		return getStructPtr()->purchased;
 	}
 
 	void setPuchusedStatus(bool purchased) {
-		*(bool*)(address + 0x10) = purchased;
+		getStructPtr()->purchased = purchased;
 	}
 
 	bool isLocked() const {
-		return *(bool*)(address + 0x20);
+		return getStructPtr()->locked;
 	}
 
 	void setLocked(bool locked) {
-		*(bool*)(address + 0x20) = locked;
+		getStructPtr()->locked = locked;
 	}
 
 	int getPrice() const {
-		return *(int*)(address + 0x3c);
+		return getStructPtr()->price;
 	}
 
 	void setPrice(int price) {
-		*(int*)(address + 0x3c) = price;
+		getStructPtr()->price = price;
 	}
 
 	int getCurrencyType() const {
-		return *(int*)(address + 0x48);
+		return getStructPtr()->currencyType;
 	}
 
 	void setItemRequirements(uintptr_t itemPtrArray, int size) {
-		*(int*)(address + 0x18) = itemPtrArray;
-		*(int*)(address + 0x1c) = size;
+		getStructPtr()->requirementsArrayPtr = itemPtrArray;
+		getStructPtr()->requirementsArrayLength = size;
+	}
+
+	//Overload default operations
+	ItemStruct* operator->() const {
+		return getStructPtr();
+	}
+
+	ItemStruct& operator*() const {
+		return *getStructPtr();
 	}
 };
 
@@ -451,6 +479,6 @@ public:
 	static std::optional<MissionWrapper>findMissionByID(int missionId);
 	static std::optional<MissionWrapper>findMissionByID(const LinkedList<MissionWrapper>& list, int targetID);
 
-	static LinkedList<ItemWrapper> GetShopItemList(int shopId);
-	static std::optional<ItemWrapper> findItemByID(const LinkedList<ItemWrapper>& list, int targetID);
+	static LinkedList<ItemStruct> GetShopItemList(int shopId);
+	static std::optional<ItemStruct> findItemByID(const LinkedList<ItemStruct>& list, int targetID);
 };

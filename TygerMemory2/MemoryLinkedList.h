@@ -28,9 +28,13 @@ public:
         return LinkedListNode(prev, offsetPrev, offsetNext);
     }
 
-    StructType getData() const {
-        if (!isValid()) throw std::runtime_error("Attempted to get data from an invalid node");
-        return StructType(address);
+    StructType& getData() const {
+        if (!isValid()) {
+            throw std::runtime_error("Attempted to get data from an invalid node");
+        }
+        // This reinterpret_cast is valid for standard-layout types like ItemWrapper
+        // It returns a *reference* to the in-memory object instance.
+        return *reinterpret_cast<StructType*>(address);
     }
 };
 

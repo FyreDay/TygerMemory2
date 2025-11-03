@@ -50,13 +50,13 @@ std::optional<MissionWrapper> SaveData::findMissionByID(const LinkedList<Mission
     return std::nullopt;
 }
 
-LinkedList<ItemWrapper> SaveData::GetShopItemList(int shopId)
+LinkedList<ItemStruct> SaveData::GetShopItemList(int shopId)
 {
     uintptr_t firstShopAddress = reinterpret_cast<uintptr_t>(&SaveData::GetData()->FirstShop);
 
     ShopStruct* shop = reinterpret_cast<ShopStruct*>(firstShopAddress + 0x40 * (shopId - 1));
 
-    LinkedList<ItemWrapper> itemList(
+    LinkedList<ItemStruct> itemList(
         (int*)&(shop->numItems),
         (uintptr_t)(shop->firstItem), // offset to head ptr
         (uintptr_t)(shop->lastItem),
@@ -66,10 +66,10 @@ LinkedList<ItemWrapper> SaveData::GetShopItemList(int shopId)
     return itemList;
 }
 
-std::optional<ItemWrapper> SaveData::findItemByID(const LinkedList<ItemWrapper>& list, int targetID)
+std::optional<ItemStruct> SaveData::findItemByID(const LinkedList<ItemStruct>& list, int targetID)
 {
     for (auto node = list.getHead(); node.isValid(); node = node.getNext()) {
-        ItemWrapper item = node.getData();
+        ItemStruct item = node.getData();
         if (item.getID() == targetID) {
             return item;
         }
