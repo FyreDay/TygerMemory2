@@ -139,7 +139,7 @@ struct SaveDataStruct {
 	float playtime; //seconds
 	int Opals;
 	int GameMode; // 2 for hardcore
-	
+	//0x10
 	char padding10[0x10];
 	char padding20[0x10];
 	char padding30[0x10];
@@ -147,17 +147,17 @@ struct SaveDataStruct {
 	char padding50[0x10];
 	char padding60[0x10];
 	char padding70[0x10];
-
+	//0x80
 	uintptr_t unkPtr;
 	uintptr_t LinkedListofLv3; //0: lv2 4: first object 8:
 	uintptr_t SomePtrToLinkedList;
 	int unk8c; // 1
-
+	//0x90
 	int vibration; // boolean
 	int controlScheme;
 	int cart1ControlScheme;
 	int cart2ControlScheme;
-
+	//0xa0
 	bool unkSettingsFlag1;
 	bool unkSettingsFlag2;
 	bool unkSettingsFlag3;
@@ -168,14 +168,15 @@ struct SaveDataStruct {
 	bool unkSettingsFlag6;
 	int unka8; // 1
 	float tysViewInvertX; // 1 or -1
-
-	float tysViewInvertY; // 1 or -1
+	//0xb0
+	float tysViewInvertY; // 1 or -1 //B0
 	float tysViewSpeed;
 	bool tysViewDirection; // 1 for body 0 for camera
 	bool unkSettingsFlag7;
 	bool unkSettingsFlag8;
 	bool unkSettingsFlag9;
 	float cameraInvertX; // 1 or -1
+	//0xc0
 	float cameraInvertY; // 1 or -1
 	float cameraSpeed;
 	bool cameraAutoCenter;
@@ -183,120 +184,125 @@ struct SaveDataStruct {
 	bool unkSettingsFlag10;
 	bool unkSettingsFlag11;
 	float cameraZoom;
-
-	//0x30 length start boomerang
+	//0xd0
 	int damageTakenTy;
 	bool GotBoomerang;
 	bool GotMultirang;
 	bool GotFlamerang;
 	bool GotLavarang;
-
 	bool GotFrostyrang;
 	bool GotFreezerang;
 	bool GotZappyrang;
 	bool GotThunderrang;
-
 	bool GotLasharang;
 	bool GotWarparang;
 	bool GotInfrarang;
 	bool GotXrang;
-
+	//0xe0
 	bool GotSmasharang;
 	bool GotKaboomarang;
 	bool GotMegarang;
 	bool GotOmegarang;
-
 	bool GotDeadlyrang;
 	bool GotDoomarang;
 	bool GotAquarang;
 	bool Got_rang;
-
 	bool GotCraftyrang;
 	bool GotCamerarang;
 	char RangPadding[0x2];
-
 	int unkRangCount2; // Changed to 1 when doing donuts in fourbie. Could be some kind of skill point flags???
-
+	//0xf0
 	int CurrentRangSave;
 	int CurrentRangLive;
 	char shopsVisitedFlags;
 	char shopsVisitedPadding[0x3];
-
 	float unkfc;
+	//0x100
 	float unk100;
 	float unk104;
 	int damageTakenTyGlobal; // Applies across all saves
 	int damageTakenRace; // unsure
+	//0x110
 	int unkDamageTaken; // unsure
 	char padding114[0xc];
-
+	//0x120
 	int enemiesKilledGlobal; // Applies across all saves
 	char padding124[0xc];
-
+	//0x130
 	char padding130[0x4];
-
 	int gameState; // 2 = minigame
-
-	// 0xb0 long mission start address
 	char MissionStart[0x4];
 	int TotalMissions;
-
+	//0x140
 	char padding2[0x4];
 	int NumMissionLists;
 	//0: unavailable
 	MissionStruct* CrocStruct1;
 	int MissionListStatus0Count;
+	//0x150
 	MissionStruct* ListStatus0Start;
 	MissionStruct* ListStatus0End;
 	//1:available but unknown
 	uintptr_t StartofMissionData0;
 	int MissionListStatus1Count;
+	//0x160
 	MissionStruct* ListStatus1Start;
 	MissionStruct* ListStatus1End;
 	//2: known and on map
 	uintptr_t StartofMissionData1;
 	int MissionListStatus2Count;
+	//0x170
 	MissionStruct* ListStatus2Start;
 	MissionStruct* ListStatus2End;
 	//3: active
 	uintptr_t StartofMissionData2;
 	int MissionListStatus3Count; //0x12
+	//0x180
 	MissionStruct* ListStatus3Start;
 	MissionStruct* ListStatus3End;
 	//4: able to turn in
 	uintptr_t StartofMissionData3;
 	int MissionListStatus4Count; //0x12
+	//0x190
 	MissionStruct* ListStatus4Start;
 	MissionStruct* ListStatus4End;
 	//5: complete
 	uintptr_t StartofMissionData4;
 	int MissionListStatus5Count; //0x12
+	//0x1a0
 	MissionStruct* ListStatus5Start;
 	MissionStruct* ListStatus5End;
 	//6: replayable
 	uintptr_t StartofMissionData5;
 	int MissionListStatus6Count; //0x12
+	//0x1b0
 	MissionStruct* ListStatus6Start;
 	MissionStruct* ListStatus6End;
 
 	uintptr_t StartofMissionData6;
-	uintptr_t unknown1;
-	MissionStruct* TrainingProgram1;
-	MissionStruct* TreeRescue;
-
-	MissionStruct* CrocStruct2;
-	MissionStruct* activeMission;
+	char padding1bc[4]; //is pointers to missionstruct sometimes
+	//0x1b0
+	char padding2c0[4]; //is pointers to missionstruct sometimes
+	char padding2c4[4]; //is pointers to missionstruct sometimes
+	char padding2c8[4]; //is pointers to missionstruct sometimes
+	char padding2cc[0x4];
+	//0x1d0
+	char padding214[0x8];
 	int callSheetCount;
 	MissionStruct* callSheetMissions[6];
 	//end missions
-
+	//0x1f4
 	ItemStruct* FirstItem; // Item list
 	int TotalItems;
 	ShopStruct* FirstShop; // Shop list
+	//0x200
 	int shopCount; // 7
 
 	uintptr_t settingsIni;
-	char padding214[0x2c];
+	char padding208[0x8];
+	char padding210[0x20];
+	//0x230
+	char padding220[0x4];
 	int unk240c;
 	uintptr_t missionsIni;
 
