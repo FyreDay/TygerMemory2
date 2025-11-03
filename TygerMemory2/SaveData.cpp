@@ -68,7 +68,7 @@ std::optional<ItemStruct> SaveData::findItemByID(const LinkedList<ItemStruct>& l
 {
     for (auto node = list.getHead(); node.isValid(); node = node.getNext()) {
         ItemStruct item = node.getData();
-        if (item.getRawID() == targetID) {
+        if (item.itemId == targetID) {
             return item;
         }
     }
