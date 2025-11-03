@@ -12,12 +12,12 @@ SaveDataStruct* SaveData::GetData() {
 }
 
 
-LinkedList<MissionWrapper> SaveData::MissionList(int missionState) {
+LinkedList<MissionStruct> SaveData::MissionList(int missionState) {
     if (missionState > 6 || missionState < 0) {
         throw std::out_of_range("Index " + std::to_string(missionState) + " is out of bounds (lower bound = 0, upperbound = 6)");
     }
     uintptr_t listBase = Core::moduleBase + 0x4EB580+0x14c + (missionState * 0x10);
-    LinkedList<MissionWrapper> missionList(
+    LinkedList<MissionStruct> missionList(
         (int*)listBase,
         *(uintptr_t*)(listBase + 0x08), // offset to head ptr
         *(uintptr_t*)(listBase + 0x04), // offset to tail ptr
@@ -28,10 +28,10 @@ LinkedList<MissionWrapper> SaveData::MissionList(int missionState) {
 }
 
 
-std::optional<MissionWrapper> SaveData::findMissionByID(int missionId) {
+std::optional<MissionStruct> SaveData::findMissionByID(int missionId) {
     for (int i = 0; i < 7; i++) {
-        LinkedList<MissionWrapper> list = SaveData::MissionList(i);
-        std::optional<MissionWrapper> mission = SaveData::findMissionByID(list, missionId);
+        LinkedList<MissionStruct> list = SaveData::MissionList(i);
+        std::optional<MissionStruct> mission = SaveData::findMissionByID(list, missionId);
         if (mission.has_value()) {
             return mission;
         }
@@ -39,10 +39,10 @@ std::optional<MissionWrapper> SaveData::findMissionByID(int missionId) {
     return std::nullopt;
 }
 
-std::optional<MissionWrapper> SaveData::findMissionByID(const LinkedList<MissionWrapper>& list, int targetID)
+std::optional<MissionStruct> SaveData::findMissionByID(const LinkedList<MissionStruct>& list, int targetID)
 {
     for (auto node = list.getHead(); node.isValid(); node = node.getNext()) {
-        MissionWrapper mission = node.getData();
+        MissionStruct mission = node.getData();
         if (mission.getID() == targetID) {
             return mission;
         }

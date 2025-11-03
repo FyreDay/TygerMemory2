@@ -42,7 +42,7 @@ public:
 	int currencyType;
 	uintptr_t ShopIconNameString;
 
-	int getID() const {
+	int getRawID() const {
 		return *reinterpret_cast<const int*>(&this->itemId);
 	}
 
@@ -69,82 +69,8 @@ struct ShopStruct {
 	ItemStruct* lastItem;
 	ItemStruct* firstItem;
 };
-
-class ItemWrapper {
+class MissionStruct {
 public:
-	uintptr_t address;
-
-	ItemWrapper(uintptr_t addr) : address(addr) {}
-
-	// Helper to get a pointer to the underlying struct
-	ItemStruct* getStructPtr() const {
-		// Safe cast because ItemStruct is standard layout
-		return reinterpret_cast<ItemStruct*>(address);
-	}
-
-	int getRawID() const {
-		return getStructPtr()->itemId;
-	}
-
-	short getID() const {
-		return *(short*)(address + 0x04);
-	}
-
-	char getIDType() const {
-		return getStructPtr()->typeChar;
-	}
-
-	int getTitleId() const {
-		return getStructPtr()->titleId;// titleId offset
-	}
-	int getDescId() const {
-		return getStructPtr()->descId; // titleId offset
-	}
-
-	bool getPuchusedStatus() const {
-		return getStructPtr()->purchased;
-	}
-
-	void setPuchusedStatus(bool purchased) {
-		getStructPtr()->purchased = purchased;
-	}
-
-	bool isLocked() const {
-		return getStructPtr()->locked;
-	}
-
-	void setLocked(bool locked) {
-		getStructPtr()->locked = locked;
-	}
-
-	int getPrice() const {
-		return getStructPtr()->price;
-	}
-
-	void setPrice(int price) {
-		getStructPtr()->price = price;
-	}
-
-	int getCurrencyType() const {
-		return getStructPtr()->currencyType;
-	}
-
-	void setItemRequirements(uintptr_t itemPtrArray, int size) {
-		getStructPtr()->requirementsArrayPtr = itemPtrArray;
-		getStructPtr()->requirementsArrayLength = size;
-	}
-
-	//Overload default operations
-	ItemStruct* operator->() const {
-		return getStructPtr();
-	}
-
-	ItemStruct& operator*() const {
-		return *getStructPtr();
-	}
-};
-
-struct MissionStruct {
 	uintptr_t maybeINIstrings;
 	int id; // format 3 bytes number, last byte m
 	int titleId;
@@ -181,35 +107,9 @@ struct MissionStruct {
 	int failureResponseType;
 	char musicstr[0x20];
 	char Undiscovered[0x34];
-};
-
-class MissionWrapper {
-public:
-	uintptr_t address;
-	MissionWrapper(uintptr_t addr) : address(addr) {}
-
-	int getTitleId() const {
-		return *(int*)(address + 0x08); // titleId offset
-	}
-
-	//const char* getMusicStr() const {
-	//	return (const char*)(address + 0x5C); // musicstr offset
-	//}
 
 	int getRawID() const {
-		return *(int*)(address + 0x04);
-	}
-
-	short getID() const {
-		return *(short*)(address + 0x04);
-	}
-
-	char getIDType() const {
-		return *(char*)(address + 0x07);
-	}
-
-	int getStatus() const {
-		return *(int*)(address + 0x10);
+		return *reinterpret_cast<const int*>(&this->id);
 	}
 
 	std::vector<MissionWrapper> getPreconditionMissions() const {
@@ -234,20 +134,6 @@ public:
 		}
 
 		return results;
-	}
-	/**
-	 * @brief Gets the number of missions inside the precondition array at state 5 to unlock this mission.
-	 * @return The number of required missions.
-	 */
-	int getNumberOfMissionsRequired() {
-		return *(int*)(address + 0x20);
-	}
-	/**
-	 * @brief Sets the number of missions inside the precondition array at state 5 unlock this mission.
-	 * @param numRequired The new number of required missions.
-	 */
-	void setNumberOfMissionsRequired(int numRequired) {
-		*(int*)(address + 0x20) = numRequired;
 	}
 };
 
@@ -475,9 +361,9 @@ public:
 	 * 0 is unavailable. 1 is available but not shown. 2 is available and shown. 3 is active. 4 is able to turn in, 5 is done. 6 is something wierd.
 	 * @return The Linked list of missions.
 	 */
-	static LinkedList<MissionWrapper> MissionList(int missionState);
-	static std::optional<MissionWrapper>findMissionByID(int missionId);
-	static std::optional<MissionWrapper>findMissionByID(const LinkedList<MissionWrapper>& list, int targetID);
+	static LinkedList<MissionStruct> MissionList(int missionState);
+	static std::optional<MissionStruct>findMissionByID(int missionId);
+	static std::optional<MissionStruct>findMissionByID(const LinkedList<MissionStruct>& list, int targetID);
 
 	static LinkedList<ItemStruct> GetShopItemList(int shopId);
 	static std::optional<ItemStruct> findItemByID(const LinkedList<ItemStruct>& list, int targetID);
