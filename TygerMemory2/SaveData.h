@@ -69,6 +69,7 @@ struct ShopStruct {
 	ItemStruct* lastItem;
 	ItemStruct* firstItem;
 };
+
 class MissionStruct {
 public:
 	uintptr_t maybeINIstrings;
@@ -112,24 +113,19 @@ public:
 		return *reinterpret_cast<const int*>(&this->id);
 	}
 
-	std::vector<MissionWrapper> getPreconditionMissions() const {
-		std::vector<MissionWrapper> results;
-
-		// read the pointer to the array of pointers
-		MissionStruct** arrayPtr = *(MissionStruct***)(address + offsetof(MissionStruct, preconditionMissionArray));
-
-		// read the count
-		int count = *(int*)(address + offsetof(MissionStruct, preconditionMissionCount));
+	std::vector<MissionStruct> getPreconditionMissions() const {
+		std::vector<MissionStruct> results;
 
 		// basic sanity checks
-		if (arrayPtr == nullptr || count <= 0 || count > 1000) return results;
+		if (this->preconditionMissionArray == nullptr || this->preconditionMissionCount <= 0 || this->preconditionMissionCount > 1000) return results;
 
-		results.reserve(count);
+		results.reserve(this->preconditionMissionCount);
 
-		for (int i = 0; i < count; ++i) {
-			MissionStruct* preconditionPtr = arrayPtr[i];
+		for (int i = 0; i < this->preconditionMissionCount; ++i) {
+			MissionStruct* preconditionPtr = this->preconditionMissionArray[i];
+
 			if (preconditionPtr != nullptr) {
-				results.emplace_back((uintptr_t)preconditionPtr);
+				results.emplace_back(*preconditionPtr);
 			}
 		}
 

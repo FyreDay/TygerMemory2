@@ -43,7 +43,7 @@ std::optional<MissionStruct> SaveData::findMissionByID(const LinkedList<MissionS
 {
     for (auto node = list.getHead(); node.isValid(); node = node.getNext()) {
         MissionStruct mission = node.getData();
-        if (mission.getID() == targetID) {
+        if (mission.getRawID() == targetID) {
             return mission;
         }
     }
@@ -70,7 +70,7 @@ std::optional<ItemStruct> SaveData::findItemByID(const LinkedList<ItemStruct>& l
 {
     for (auto node = list.getHead(); node.isValid(); node = node.getNext()) {
         ItemStruct item = node.getData();
-        if (item.getID() == targetID) {
+        if (item.getRawID() == targetID) {
             return item;
         }
     }
