@@ -37,3 +37,7 @@ UIElementStruct* MKUI::FindChildElementByName(UIElementStruct* parent,const char
     // Not found
     return nullptr;
 }
+
+//2f3a00 is click handler
+
+// __thiscall FUN_006f6240(undefined4 *param_1,char *param_2,undefined4 param_3)
