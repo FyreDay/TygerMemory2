@@ -43,7 +43,7 @@ MissionStruct* SaveData::findMissionByID(const LinkedList<MissionStruct>& list, 
 {
     for (auto node = list.getHead(); node.isValid(); node = node.getNext()) {
         MissionStruct& mission = node.getData();
-        if (mission.id == targetID) {
+        if (mission.missionId == targetID) {
             return &mission;
         }
     }

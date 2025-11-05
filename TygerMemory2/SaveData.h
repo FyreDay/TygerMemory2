@@ -73,7 +73,9 @@ struct ShopStruct {
 class MissionStruct {
 public:
 	uintptr_t maybeINIstrings;
-	int id; // format 3 bytes number, last byte m
+	short missionId;
+	char typeCharPadding;
+	char typeChar;
 	int titleId;
 	int descId;
 
@@ -110,8 +112,9 @@ public:
 	char Undiscovered[0x34];
 
 	int getRawID() const {
-		return *reinterpret_cast<const int*>(&this->id);
+		return *reinterpret_cast<const int*>(&this->missionId);
 	}
+
 
 	std::vector<MissionStruct> getPreconditionMissions() const {
 		std::vector<MissionStruct> results;
