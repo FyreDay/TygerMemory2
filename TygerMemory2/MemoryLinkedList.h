@@ -42,19 +42,19 @@ template<typename StructType>
 class LinkedList {
 public:
     int* lengthPtr;
-    uintptr_t head;
-    uintptr_t tail;
+    uintptr_t* head;
+    uintptr_t* tail;
     size_t offsetPrev;
     size_t offsetNext;
     bool hasTail;
 
-    LinkedList(int* len, uintptr_t head, uintptr_t tail,
+    LinkedList(int* len, uintptr_t* head, uintptr_t* tail,
         size_t prevOff, size_t nextOff)
         : lengthPtr(len), head(head), tail(tail),
         offsetPrev(prevOff), offsetNext(nextOff), hasTail(true) {}
 
     // Overload: tail omitted
-    LinkedList(int* len, uintptr_t head,
+    LinkedList(int* len, uintptr_t* head,
         size_t prevOff, size_t nextOff)
         : lengthPtr(len), head(head), tail(0),
         offsetPrev(prevOff), offsetNext(nextOff), hasTail(false) {}
@@ -64,13 +64,13 @@ public:
     }
 
     LinkedListNode<StructType> getHead() const {
-        return LinkedListNode<StructType>(head, offsetPrev, offsetNext);
+        return LinkedListNode<StructType>(*head, offsetPrev, offsetNext);
     }
 
     LinkedListNode<StructType> getTail() const {
-        if (!hasTail || tail == nullptr)
+        if (!hasTail || *tail == nullptr)
             return LinkedListNode<StructType>(0, offsetPrev, offsetNext); // invalid node
-        return LinkedListNode<StructType>(tail, offsetPrev, offsetNext);
+        return LinkedListNode<StructType>(*tail, offsetPrev, offsetNext);
     }
 
     template<typename Func>
