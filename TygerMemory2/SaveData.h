@@ -227,17 +227,19 @@ struct SaveDataStruct {
 	char padding114[0xc];
 	//0x120
 	int enemiesKilledGlobal; // Applies across all saves
-	char padding124[0xc];
-	//0x130
-	char padding130[0x4];
+	float unk128; // 8.0
+	char padding12c[0x4];
+	float unk130; // 8.0
+	float unk134; // 2.0
+	//0x138
 	int gameState; // 2 = minigame
-	char MissionStart[0x4];
+	int missionCutsceneActive; // 1 during maurie intro of mision outro
 	int TotalMissions;
 	//0x140
-	char padding2[0x4];
-	int NumMissionLists;
+	char padding140[0x4];
+	int missionIntroFlag;
 	//0: unavailable
-	MissionStruct* CrocStruct1;
+	MissionStruct* firstMission;
 	int MissionListStatus0Count;
 	//0x150
 	MissionStruct* ListStatus0Start;
@@ -278,18 +280,13 @@ struct SaveDataStruct {
 	//0x1b0
 	MissionStruct* ListStatus6Start;
 	MissionStruct* ListStatus6End;
-
 	uintptr_t StartofMissionData6;
-	char padding1bc[4]; //is pointers to missionstruct sometimes
-	//0x1b0
-	char padding2c0[4]; //is pointers to missionstruct sometimes
-	char padding2c4[4]; //is pointers to missionstruct sometimes
-	char padding2c8[4]; //is pointers to missionstruct sometimes
-	char padding2cc[0x4];
-	//0x1d0
-	char padding214[0x8];
-	int callSheetCount;
+
+	uintptr_t settingsIniPtr1;
+
 	MissionStruct* callSheetMissions[6];
+	int callSheetCount;
+	MissionStruct* callSheetMissionsUnordered[6];
 	//end missions
 	//0x1f4
 	ItemStruct* FirstItem; // Item list
@@ -298,17 +295,16 @@ struct SaveDataStruct {
 	//0x200
 	int shopCount; // 7
 
-	uintptr_t settingsIni;
-	char padding208[0x8];
-	char padding210[0x20];
-	//0x230
-	char padding220[0x4];
-	int unk240c;
-	uintptr_t missionsIni;
+	uintptr_t settingsIniPtr2;
+	ItemStruct* heldItems[0xA];
+	int heldItemCount;
 
-	//collectables
-	char unknown234[0x4];
+	//0x234
+	int unk234; // 1
+	uintptr_t missionsIniPtr;
 
+	// collectables
+	int unk23C; // 3
 	uintptr_t CogBitArray;
 	int CogTotal;
 	int CogCollected;
