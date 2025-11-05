@@ -34,13 +34,13 @@ public:
 
 	uintptr_t startofMissionData;
 	uintptr_t targetString;
-	uintptr_t TDAIconString;
+	char* TDAIconString;
 	int price;
 
 	int ShopId;
 	int subtype;
 	int currencyType;
-	uintptr_t ShopIconNameString;
+	char* ShopIconNameString;
 
 	int getRawID() const {
 		return *reinterpret_cast<const int*>(&this->itemId);
