@@ -19,6 +19,7 @@ public:
     }
 
     LinkedListNode getNext() const {
+        if (!isValid()) return LinkedListNode(0, offsetPrev, offsetNext);
         uintptr_t next = *(uintptr_t*)(address + offsetNext);
         return LinkedListNode(next, offsetPrev, offsetNext);
     }
@@ -68,8 +69,8 @@ public:
     }
 
     LinkedListNode<StructType> getTail() const {
-        if (!hasTail || *tail == nullptr)
-            return LinkedListNode<StructType>(0, offsetPrev, offsetNext); // invalid node
+        if (!hasTail || !tail || *tail == 0)
+            return LinkedListNode<StructType>(0, offsetPrev, offsetNext);
         return LinkedListNode<StructType>(*tail, offsetPrev, offsetNext);
     }
 

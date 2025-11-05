@@ -52,7 +52,8 @@ MissionStruct* SaveData::findMissionByID(const LinkedList<MissionStruct>& list, 
 
 LinkedList<ItemStruct> SaveData::GetShopItemList(int shopId)
 {
-    ShopStruct* shop = reinterpret_cast<ShopStruct*>(SaveData::GetData()->FirstShop + (shopId - 1));
+    ShopStruct* FirstShop = SaveData::GetData()->FirstShop;
+    ShopStruct* shop = FirstShop + (shopId - 1);
 
     LinkedList<ItemStruct> itemList(
         (int*)&(shop->numItems),
