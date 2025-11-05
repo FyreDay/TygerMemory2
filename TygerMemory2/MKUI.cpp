@@ -41,3 +41,10 @@ UIElementStruct* MKUI::FindChildElementByName(UIElementStruct* parent,const char
 //2f3a00 is click handler
 
 // __thiscall FUN_006f6240(undefined4 *param_1,char *param_2,undefined4 param_3)
+//ty2.exe+004524d8 is button vtable
+
+//ty2.exe+2f3a00 is handlebuttonevent
+
+//ty2.exe+ 4c94f4 is the UI message string lookup table
+
+//ty2.exe+ 454c28 exitlevelscreenvtable

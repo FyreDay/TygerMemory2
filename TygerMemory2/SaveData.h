@@ -364,9 +364,14 @@ public:
 	 * @return The Linked list of missions.
 	 */
 	static LinkedList<MissionStruct> MissionList(int missionState);
-	static std::optional<MissionStruct>findMissionByID(int missionId);
-	static std::optional<MissionStruct>findMissionByID(const LinkedList<MissionStruct>& list, int targetID);
+	/**
+	 * @brief Returns the mission with a specific id (not raw, the short)
+	 * @param missionId is the short for the mission
+	 * @return pointer to a mission
+	 */
+	static MissionStruct* findMissionByID(int missionId);
+	static MissionStruct* findMissionByID(const LinkedList<MissionStruct>& list, int targetID);
 
 	static LinkedList<ItemStruct> GetShopItemList(int shopId);
-	static std::optional<ItemStruct> findItemByID(const LinkedList<ItemStruct>& list, int targetID);
+	static ItemStruct* findItemByID(const LinkedList<ItemStruct>& list, int targetID);
 };

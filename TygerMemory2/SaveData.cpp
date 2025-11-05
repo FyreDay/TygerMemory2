@@ -28,26 +28,26 @@ LinkedList<MissionStruct> SaveData::MissionList(int missionState) {
 }
 
 
-std::optional<MissionStruct> SaveData::findMissionByID(int missionId) {
+MissionStruct* SaveData::findMissionByID(int missionId) {
     for (int i = 0; i < 7; i++) {
         LinkedList<MissionStruct> list = SaveData::MissionList(i);
-        std::optional<MissionStruct> mission = SaveData::findMissionByID(list, missionId);
-        if (mission.has_value()) {
+        MissionStruct* mission = SaveData::findMissionByID(list, missionId);
+        if (mission != nullptr) {
             return mission;
         }
     }
-    return std::nullopt;
+    return nullptr;
 }
 
-std::optional<MissionStruct> SaveData::findMissionByID(const LinkedList<MissionStruct>& list, int targetID)
+MissionStruct* SaveData::findMissionByID(const LinkedList<MissionStruct>& list, int targetID)
 {
     for (auto node = list.getHead(); node.isValid(); node = node.getNext()) {
-        MissionStruct mission = node.getData();
-        if (mission.getRawID() == targetID) {
-            return mission;
+        MissionStruct& mission = node.getData();
+        if (mission.id == targetID) {
+            return &mission;
         }
     }
-    return std::nullopt;
+    return nullptr;
 }
 
 LinkedList<ItemStruct> SaveData::GetShopItemList(int shopId)
@@ -64,14 +64,14 @@ LinkedList<ItemStruct> SaveData::GetShopItemList(int shopId)
     return itemList;
 }
 
-std::optional<ItemStruct> SaveData::findItemByID(const LinkedList<ItemStruct>& list, int targetID)
+ItemStruct* SaveData::findItemByID(const LinkedList<ItemStruct>& list, int targetID)
 {
     for (auto node = list.getHead(); node.isValid(); node = node.getNext()) {
-        ItemStruct item = node.getData();
+        ItemStruct& item = node.getData();
         if (item.itemId == targetID) {
-            return item;
+            return &item;
         }
     }
-    return std::nullopt;
+    return nullptr;
 }
 //36dca0 may contain code to load chuncks.
