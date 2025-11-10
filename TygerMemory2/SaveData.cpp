@@ -65,6 +65,17 @@ LinkedList<ItemStruct> SaveData::GetShopItemList(int shopId)
     return itemList;
 }
 
+ItemStruct* SaveData::findItemByID(int targetID) {
+    for (int i = 0; i < 5; i++) {
+        LinkedList<ItemStruct> list = SaveData::GetShopItemList(i);
+        ItemStruct* item = SaveData::findItemByID(list, targetID);
+        if (item != nullptr) {
+            return item;
+        }
+    }
+    return nullptr;
+}
+
 ItemStruct* SaveData::findItemByID(const LinkedList<ItemStruct>& list, int targetID)
 {
     for (auto node = list.getHead(); node.isValid(); node = node.getNext()) {

@@ -372,5 +372,6 @@ public:
 	static MissionStruct* findMissionByID(const LinkedList<MissionStruct>& list, int targetID);
 
 	static LinkedList<ItemStruct> GetShopItemList(int shopId);
+	static ItemStruct* findItemByID(int targetID);
 	static ItemStruct* findItemByID(const LinkedList<ItemStruct>& list, int targetID);
 };
